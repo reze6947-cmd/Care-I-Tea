@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en" class="cart-page">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Care-I-Tea Shopping Cart">
+    <title>Care-I-Tea - Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b6f47;
+            --primary-dark: #6b552f;
+            --secondary: #7a9a7a;
+            --accent: #d8a7b1;
+            --gold: #b88b4a;
+            --text: #3f2f1f;
+            --text-light: #8c7a6b;
+            --bg: #f8f1e9;
+            --white: rgba(255, 255, 255, 0.95);
+            --border: rgba(226,232,240,0.5);
+            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.15);
+            --shadow-lg: 0 20px 40px -10px rgba(0,0,0,0.2);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: "Times New Roman", Times, serif; 
+            background: linear-gradient(to bottom, #b69754, #d9e2ec); 
+            color: var(--text); 
+            line-height: 1.7; 
+            scroll-behavior: smooth; 
+        }
+        header { 
+            background: rgba(255,255,255,0.9); 
+            backdrop-filter: blur(10px); 
+            box-shadow: var(--shadow-md); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            border-bottom: 1px solid var(--border); 
+        }
+        .main-header { 
+            padding: 1.2rem 1.5rem; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 1rem;
+        }
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .logo-img {
+            height: 70px;
+            width: auto;
+            display: block;
+        }
+        nav ul { 
+            display: flex; 
+            list-style: none; 
+            gap: 2rem; 
+            flex-wrap: wrap; 
+            justify-content: center;
+        }
+        nav a { 
+            text-decoration: none; 
+            color: var(--text); 
+            font-weight: 600; 
+            padding: 0.6rem 1rem; 
+            position: relative; 
+            transition: var(--transition); 
+            border-radius: 12px; 
+            font-size: 1rem;
+        }
+        nav a:hover { color: var(--primary); background: rgba(139,111,71,0.08); }
+        nav a.active { 
+            color: var(--primary); 
+            background: rgba(139,111,71,0.12); 
+            font-weight: 700; 
+        }
+        nav a.active::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: -8px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 60%; 
+            height: 4px; 
+            background: linear-gradient(to right, transparent, var(--gold), transparent); 
+            border-radius: 2px; 
+        }
+        .header-actions { display: flex; align-items: center; gap: 1.5rem; }
+        .cart-icon { 
+            position: relative; 
+            cursor: pointer; 
+            font-size: 1.8rem; 
+            transition: var(--transition); 
+            color: var(--primary); 
+        }
+        .cart-icon:hover { transform: scale(1.2) rotate(10deg); }
+        .cart-count { 
+            position: absolute; 
+            top: -12px; 
+            right: -15px; 
+            background: var(--gold); 
+            color: var(--primary); 
+            font-size: 0.8rem; 
+            font-weight: 700; 
+            width: 24px; 
+            height: 24px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: var(--shadow-sm); 
+        }
+        main { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 2rem 1.5rem; 
+        }
+        h2 { 
+            text-align: center; 
+            margin-bottom: 3rem; 
+            font-size: 2.8rem; 
+            font-weight: 800; 
+            color: var(--primary); 
+            position: relative; 
+            padding: 1.2rem 1.8rem;
+            background: var(--white);
+            border: 3px solid var(--gold);
+            border-radius: 30px;
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(15px);
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+        }
+        h2::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(184,139,74,0.1), rgba(139,111,71,0.05));
+            z-index: -1;
+            border-radius: 30px;
+        }
+        h2::after { 
+            content: ''; 
+            display: block; 
+            width: 100px; 
+            height: 5px; 
+            background: linear-gradient(to right, transparent, var(--gold), transparent); 
+            margin: 1rem auto 0; 
+            border-radius: 3px; 
+            box-shadow: 0 2px 8px rgba(184,139,74,0.4);
+        }
+        .page-content { 
+            max-width: 1000px; 
+            margin: 2rem auto; 
+            background: var(--white); 
+            padding: 3rem 2.5rem; 
+            border-radius: 30px; 
+            box-shadow: var(--shadow-lg); 
+            backdrop-filter: blur(15px); 
+            border: 1px solid var(--border); 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .page-content::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: var(--page-bg) center/cover no-repeat; 
+            opacity: 0.15; 
+            z-index: -1; 
+            border-radius: 30px; 
+        }
+        body.cart-page .page-content::before { --page-bg: url('https://media.istockphoto.com/id/1296589063/photo/shopping-cart-with-tea-boxes-on-yellow-background.jpg?s=612x612&w=0&k=20&c=8y6z6f5o2q1t3f4b5x6c7d8e9f0g1h2i3j4k5l6m7n8o='); }
+
+        /* Cart Items */
+        .cart-items { margin-bottom: 3.5rem; }
+        .cart-item { 
+            display: flex; 
+            align-items: center; 
+            background: rgba(248,250,252,0.9); 
+            padding: 2.2rem; 
+            border-radius: 28px; 
+            box-shadow: var(--shadow-md); 
+            margin-bottom: 2rem; 
+            transition: var(--transition);
+        }
+        .cart-item:hover { box-shadow: var(--shadow-lg); transform: translateY(-8px); }
+        .cart-item img { 
+            width: 180px; 
+            height: 180px; 
+            object-fit: contain; 
+            border-radius: 20px; 
+            background: linear-gradient(to bottom, #f0f4f8, #e2e8f0); 
+            padding: 1.2rem; 
+            box-shadow: var(--shadow-sm);
+        }
+        .cart-item-info { flex: 1; margin-left: 2.5rem; }
+        .cart-item-info h3 { font-size: 1.9rem; color: var(--primary); margin-bottom: 0.8rem; }
+        .price-single { font-size: 1.35rem; color: var(--text-light); margin-bottom: 1.2rem; }
+        .subtotal { font-size: 1.5rem; font-weight: 900; color: var(--gold); margin-top: 1.2rem; }
+
+        .cart-actions { 
+            display: flex; 
+            align-items: center; 
+            gap: 1.8rem; 
+            margin-top: 1.8rem; 
+        }
+        .qty-control { 
+            display: flex; 
+            align-items: center; 
+            background: white; 
+            border: 2px solid var(--border); 
+            border-radius: 50px; 
+            overflow: hidden; 
+            box-shadow: var(--shadow-sm);
+        }
+        .qty-control button { 
+            width: 38px; 
+            height: 48px; 
+            background: var(--white); 
+            border: none; 
+            font-size: 1.5rem; 
+            cursor: pointer; 
+            transition: var(--transition);
+        }
+        .qty-control button:hover { background: var(--primary); color: white; }
+        .qty-control input { 
+            width: 76px; 
+            height: 48px; 
+            text-align: center; 
+            border: none; 
+            font-size: 1.35rem; 
+            font-weight: 700;
+        }
+        .remove-btn { 
+            background: transparent; 
+            color: #dc3545; 
+            border: 2px solid #dc3545; 
+            padding: 0.7rem 1.8rem; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            transition: var(--transition);
+        }
+        .remove-btn:hover { background: #dc3545; color: white; transform: translateY(-3px); }
+
+        /* Checkout Options */
+        .checkout-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 3.5rem;
+        }
+        .option-group {
+            background: rgba(248,250,252,0.9);
+            padding: 2.2rem;
+            border-radius: 28px;
+            box-shadow: var(--shadow-md);
+        }
+        .option-group h3 {
+            font-size: 1.7rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        .option:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        .option input[type="radio"] {
+            margin-right: 1.2rem;
+            transform: scale(1.3);
+            accent-color: var(--primary);
+        }
+        .option label {
+            flex: 1;
+            font-size: 1.15rem;
+            cursor: pointer;
+        }
+        .option .fee {
+            font-weight: 700;
+            color: var(--gold);
+            margin-left: auto;
+        }
+
+        /* Summary & Checkout */
+        .cart-summary { text-align: right; margin-bottom: 2.5rem; }
+        .cart-summary p { font-size: 1.35rem; color: var(--text-light); margin-bottom: 0.7rem; }
+        .cart-summary .total { font-size: 2.4rem; font-weight: 900; color: var(--gold); margin-top: 1.2rem; }
+
+        .checkout-section { text-align: right; }
+        .checkout-btn { 
+            background: linear-gradient(to right, var(--primary), var(--primary-dark)); 
+            color: white; 
+            padding: 1.5rem 4.5rem; 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            border: none; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            box-shadow: var(--shadow-lg); 
+            transition: var(--transition);
+        }
+        .checkout-btn:hover { transform: translateY(-10px) scale(1.05); box-shadow: 0 25px 50px rgba(139,111,71,0.4); }
+
+        .empty-cart { text-align: center; padding: 5rem 0; }
+        .empty-cart p { font-size: 1.7rem; margin-bottom: 2.5rem; color: var(--text-light); }
+        .continue-shopping { 
+            background: linear-gradient(to right, var(--primary), var(--primary-dark)); 
+            color: white; 
+            padding: 1.3rem 3.5rem; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-size: 1.3rem; 
+            font-weight: 700; 
+            box-shadow: var(--shadow-lg); 
+            transition: var(--transition);
+            display: inline-block;
+        }
+        .continue-shopping:hover { transform: translateY(-8px) scale(1.05); }
+
+        .notification { 
+            position: fixed; 
+            top: 100px; 
+            right: 20px; 
+            background: linear-gradient(to right, var(--secondary), #059669); 
+            color: white; 
+            padding: 1.2rem 2rem; 
+            border-radius: 20px; 
+            box-shadow: var(--shadow-lg); 
+            z-index: 3000; 
+            animation: slideIn 0.5s ease, pulse 2s infinite 1s; 
+            font-weight: 700; 
+            font-size: 1rem;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+        footer { 
+            background: linear-gradient(to top, var(--text), #1a2533); 
+            color: white; 
+            padding: 4rem 1.5rem 2rem; 
+            text-align: center; 
+            margin-top: 6rem; 
+            position: relative;
+            overflow: hidden;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center top, rgba(184,139,74,0.15), transparent 70%);
+            z-index: 0;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-logo {
+            margin-bottom: 2rem;
+        }
+        .footer-logo img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+        .footer-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: left;
+        }
+        .footer-column h4 {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        .footer-column p, .footer-column li {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.9);
+        }
+        .footer-bottom {
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(184,139,74,0.3);
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .checkout-options { grid-template-columns: 1fr; }
+            h2 { font-size: 2.5rem; padding: 1rem 1.5rem; }
+            .page-content { padding: 3rem 2rem; }
+        }
+        @media (max-width: 768px) {
+            .main-header { flex-direction: column; gap: 1.5rem; padding: 1rem; }
+            nav ul { gap: 1.2rem; }
+            nav a { padding: 0.5rem 0.8rem; font-size: 0.95rem; }
+            h2 { font-size: 2.2rem; padding: 1rem 1.2rem; }
+            .page-content { padding: 2.5rem 1.8rem; margin: 1.5rem auto; }
+            .cart-item { flex-direction: column; text-align: center; }
+            .cart-item img { margin-right: 0; margin-bottom: 1.8rem; width: 160px; height: 160px; }
+            .cart-item-info { margin-left: 0; }
+            .cart-actions { justify-content: center; }
+            .cart-summary, .checkout-section { text-align: center; }
+            .checkout-btn { float: none; display: inline-block; padding: 1.4rem 4rem; font-size: 1.4rem; }
+            .footer-main { grid-template-columns: 1fr; text-align: center; }
+            .footer-column h4::after { left: 50%; transform: translateX(-50%); }
+            .footer-logo img { height: 50px; }
+        }
+        @media (max-width: 480px) {
+            h2 { font-size: 2rem; padding: 0.8rem 1rem; }
+            .page-content { padding: 2rem 1.5rem; }
+            .cart-item img { width: 140px; height: 140px; }
+            .cart-item-info h3 { font-size: 1.7rem; }
+            .checkout-btn { padding: 1.3rem 3rem; font-size: 1.3rem; width: 100%; }
+            .logo-img { height: 55px; }
+            nav a { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body class="cart-page">
+    <header>
+        <div class="main-header">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="LOGO CARE-I TEA.jpg" alt="Care-I Tea Logo" class="logo-img">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="how.html">How It Works</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="promos.html">Marketing & Promos</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="cart-icon" onclick="window.location.href='cart.html'">🛒<span class="cart-count" id="cart-count">0</span></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h2>Your Shopping Cart</h2>
+        <div class="page-content">
+            <div id="cart-content"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="LOGO CARE-I TEA.jpg" alt="Care-I Tea Logo">
+            </div>
+            <div class="footer-main">
+                <div class="footer-column">
+                    <h4>About Care-I Tea</h4>
+                    <p>Care-I Tea is a wellness-focused powdered tea brand committed to providing convenient, health-conscious beverage options for everyday self-care.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Privacy Policy</h4>
+                    <p>Care-I Tea values your privacy and is committed to protecting your personal information. Any data collected through this website, such as names, contact details, and order information, is used solely for order processing, customer service, and communication purposes. We do not sell, share, or disclose personal information to third parties without consent, except when required by law.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Terms & Conditions</h4>
+                    <p>By accessing and using the Care-I Tea website, users agree to comply with the terms and conditions stated herein. All product descriptions, prices, and availability are subject to change without prior notice. Care-I Tea reserves the right to update website content, promotions, and policies to improve customer experience and service quality.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Sustainability Commitment</h4>
+                    <p>Care-I Tea is committed to promoting mindful consumption and environmental responsibility. We use eco-friendly, resealable packaging to reduce waste and preserve product quality. The brand supports sustainable sourcing practices and encourages customers to practice responsible disposal and reuse of packaging as part of a wellness-driven lifestyle.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Care-I Tea. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, name: "Earl Grey", price: 75, img: "EARL GREY PACKAGING.jpg", desc: "40 grams · Bergamot-infused tea powder with mild caffeine content; smooth, non-bitter formulation." },
+            { id: 2, name: "Green Tea", price: 85, img: "GREEN TEA PACKAGING.jpg", desc: "40 grams · Finely processed powdered green tea rich in antioxidants; lightly sweetened with stevia." },
+            { id: 3, name: "Blue Ternate", price: 105, img: "BLUE TERNATE PACKAGING.jpg", desc: "40 grams · Naturally vibrant blue powdered tea; caffeine-free; unique and exotic flavor." },
+            { id: 4, name: "Chamomile", price: 115, img: "CHAMOMILE PACKAGING.jpg", desc: "40 grams · Caffeine-free powdered tea with a mild floral aroma; naturally sweetened with stevia." }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            const countEl = document.getElementById('cart-count');
+            if (countEl) countEl.textContent = cart.reduce((s,i)=>s+i.qty,0) || 0;
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            saveCart();
+            renderCart();
+            showNotification('Item removed from cart');
+        }
+
+        function updateQty(id, newQty) {
+            if (newQty < 1) { removeFromCart(id); return; }
+            const item = cart.find(i => i.id === id);
+            if (item) item.qty = newQty;
+            saveCart();
+            renderCart();
+        }
+
+        function showNotification(msg) {
+            const n = document.createElement('div');
+            n.className = 'notification';
+            n.textContent = msg;
+            document.body.appendChild(n);
+            setTimeout(() => n.remove(), 3000);
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-content');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart">
+                        <p>Your cart is empty</p>
+                        <a href="shop.html" class="continue-shopping">Continue Shopping</a>
+                    </div>`;
+                return;
+            }
+
+            // Cart Items
+            const cartItemsDiv = document.createElement('div');
+            cartItemsDiv.className = 'cart-items';
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                const prod = products.find(p => p.id === item.id);
+                subtotal += prod.price * item.qty;
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.innerHTML = `
+                    <img src="${prod.img}" alt="${prod.name}">
+                    <div class="cart-item-info">
+                        <h3>${prod.name}</h3>
+                        <p class="price-single">₱${prod.price} each</p>
+                        <div class="cart-actions">
+                            <div class="qty-control">
+                                <button onclick="updateQty(${item.id}, ${item.qty - 1})">-</button>
+                                <input type="text" value="${item.qty}" readonly>
+                                <button onclick="updateQty(${item.id}, ${item.qty + 1})">+</button>
+                            </div>
+                            <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
+                        </div>
+                        <p class="subtotal">Subtotal: ₱${prod.price * item.qty}</p>
+                    </div>
+                `;
+                cartItemsDiv.appendChild(itemDiv);
+            });
+
+            // Checkout Options
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'checkout-options';
+            optionsDiv.innerHTML = `
+                <div class="option-group">
+                    <h3>Delivery Method</h3>
+                    <div class="option">
+                        <input type="radio" name="delivery" id="standard" value="standard" checked>
+                        <label for="standard">Standard Delivery (3-5 days)</label>
+                        <span class="fee">₱80</span>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="delivery" id="express" value="express">
+                        <label for="express">Express Delivery (1-2 days)</label>
+                        <span class="fee">₱182</span>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="delivery" id="pickup" value="pickup">
+                        <label for="pickup">Store Pickup (Free)</label>
+                        <span class="fee">Free</span>
+                    </div>
+                </div>
+                <div class="option-group">
+                    <h3>Payment Method</h3>
+                    <div class="option">
+                        <input type="radio" name="payment" id="cod" value="cod" checked>
+                        <label for="cod">Cash on Delivery (COD)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="payment" id="gcash" value="gcash">
+                        <label for="gcash">GCash</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="payment" id="card" value="card">
+                        <label for="card">Credit/Debit Card</label>
+                    </div>
+                </div>
+            `;
+
+            // Summary
+            const summaryDiv = document.createElement('div');
+            summaryDiv.className = 'cart-summary';
+            summaryDiv.innerHTML = `
+                <p>Subtotal: ₱${subtotal}</p>
+                <p>Shipping Fee: <span id="shipping-fee">₱80</span></p>
+                <div class="total">Total: ₱<span id="grand-total">${subtotal + 80}</span></div>
+            `;
+
+            // Checkout Button
+            const checkoutDiv = document.createElement('div');
+            checkoutDiv.className = 'checkout-section';
+            checkoutDiv.innerHTML = `<button class="checkout-btn" onclick="alert('Checkout complete! Thank you for your order.\\n\\nDelivery: ' + document.querySelector('input[name=\\\"delivery\\\"]:checked').nextElementSibling.textContent.trim() + '\\nPayment: ' + document.querySelector('input[name=\\\"payment\\\"]:checked').nextElementSibling.textContent.trim())">Proceed to Checkout</button>`;
+
+            container.appendChild(cartItemsDiv);
+            container.appendChild(optionsDiv);
+            container.appendChild(summaryDiv);
+            container.appendChild(checkoutDiv);
+
+            // Update total when delivery changes
+            document.querySelectorAll('input[name="delivery"]').forEach(radio => {
+                radio.addEventListener('change', () => {
+                    let fee = 0;
+                    if (radio.value === 'express') fee = 182;
+                    else if (radio.value === 'standard') fee = 80;
+                    document.getElementById('shipping-fee').textContent = radio.value === 'pickup' ? 'Free' : `₱${fee}`;
+                    document.getElementById('grand-total').textContent = subtotal + fee;
+                });
+            });
+        }
+
+        saveCart();
+        renderCart();
+    </script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" class="blog-page">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Care-I-Tea Blog – Articles on wellness, tea benefits, and mindful living.">
+    <title>Care-I-Tea - Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b6f47;
+            --primary-dark: #6b552f;
+            --secondary: #7a9a7a;
+            --accent: #d8a7b1;
+            --gold: #b88b4a;
+            --text: #3f2f1f;
+            --text-light: #8c7a6b;
+            --bg: #f8f1e9;
+            --white: rgba(255, 255, 255, 0.95);
+            --border: rgba(226,232,240,0.5);
+            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.15);
+            --shadow-lg: 0 20px 40px -10px rgba(0,0,0,0.2);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: "Times New Roman", Times, serif; 
+            background: linear-gradient(to bottom, #b69754, #d9e2ec); 
+            color: var(--text); 
+            line-height: 1.7; 
+            scroll-behavior: smooth; 
+        }
+        header { 
+            background: rgba(255,255,255,0.9); 
+            backdrop-filter: blur(10px); 
+            box-shadow: var(--shadow-md); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            border-bottom: 1px solid var(--border); 
+        }
+        .main-header { 
+            padding: 1.2rem 1.5rem; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 1rem;
+        }
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .logo-img {
+            height: 70px;
+            width: auto;
+            display: block;
+        }
+        nav ul { 
+            display: flex; 
+            list-style: none; 
+            gap: 2rem; 
+            flex-wrap: wrap; 
+            justify-content: center;
+        }
+        nav a { 
+            text-decoration: none; 
+            color: var(--text); 
+            font-weight: 600; 
+            padding: 0.6rem 1rem; 
+            position: relative; 
+            transition: var(--transition); 
+            border-radius: 12px; 
+            font-size: 1rem;
+        }
+        nav a:hover { color: var(--primary); background: rgba(139,111,71,0.08); }
+        nav a.active { 
+            color: var(--primary); 
+            background: rgba(139,111,71,0.12); 
+            font-weight: 700; 
+        }
+        nav a.active::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: -8px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 60%; 
+            height: 4px; 
+            background: linear-gradient(to right, transparent, var(--gold), transparent); 
+            border-radius: 2px; 
+        }
+        .header-actions { display: flex; align-items: center; gap: 1.5rem; }
+        .cart-icon { 
+            position: relative; 
+            cursor: pointer; 
+            font-size: 1.8rem; 
+            transition: var(--transition); 
+            color: var(--primary); 
+        }
+        .cart-icon:hover { transform: scale(1.2) rotate(10deg); }
+        .cart-count { 
+            position: absolute; 
+            top: -12px; 
+            right: -15px; 
+            background: var(--gold); 
+            color: var(--primary); 
+            font-size: 0.8rem; 
+            font-weight: 700; 
+            width: 24px; 
+            height: 24px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: var(--shadow-sm); 
+        }
+        main { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 2rem 1.5rem; 
+        }
+        h2 { 
+            text-align: center; 
+            margin-bottom: 3rem; 
+            font-size: 2.8rem; 
+            font-weight: 800; 
+            color: var(--primary); 
+            position: relative; 
+            padding: 1.2rem 1.8rem;
+            background: var(--white);
+            border: 3px solid var(--gold);
+            border-radius: 30px;
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(15px);
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+        }
+        h2::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(184,139,74,0.1), rgba(139,111,71,0.05));
+            z-index: -1;
+            border-radius: 30px;
+        }
+        h2::after { 
+            content: ''; 
+            display: block; 
+            width: 100px; 
+            height: 5px; 
+            background: linear-gradient(to right, transparent, var(--gold), transparent); 
+            margin: 1rem auto 0; 
+            border-radius: 3px; 
+            box-shadow: 0 2px 8px rgba(184,139,74,0.4);
+        }
+        .page-content { 
+            max-width: 900px; 
+            margin: 2rem auto; 
+            background: var(--white); 
+            padding: 3rem 2.5rem; 
+            border-radius: 30px; 
+            box-shadow: var(--shadow-lg); 
+            backdrop-filter: blur(15px); 
+            border: 1px solid var(--border); 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .page-content::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: var(--page-bg) center/cover no-repeat; 
+            opacity: 0.15; 
+            z-index: -1; 
+            border-radius: 30px; 
+        }
+        body.blog-page .page-content::before { --page-bg: url('https://images.squarespace-cdn.com/content/v1/59a037d34c0dbf261600c0ec/1634934922967-DMYTE4UHT3NM1S5PA9IL/unsplash-image-DFtvglCPWjY.jpg'); }
+        .blog-post { margin-bottom: 3rem; padding-bottom: 2.5rem; border-bottom: 2px dashed var(--gold); }
+        .blog-post:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
+        .blog-post h3 { 
+            margin: 0 0 1.5rem; 
+            color: var(--primary); 
+            font-size: 2rem; 
+            text-align: center; 
+            position: relative; 
+        }
+        .blog-post h3::after { 
+            content: ''; 
+            display: block; 
+            width: 80px; 
+            height: 3px; 
+            background: var(--gold); 
+            margin: 1rem auto 0; 
+            border-radius: 2px; 
+        }
+        .post-content { 
+            display: flex; 
+            flex-direction: row; 
+            gap: 2.5rem; 
+            align-items: center; 
+        }
+        .post-content.reverse { flex-direction: row-reverse; }
+        .post-image { flex: 1; min-width: 280px; }
+        .post-image img { 
+            width: 100%; 
+            height: auto; 
+            border-radius: 24px; 
+            box-shadow: var(--shadow-lg); 
+            object-fit: cover; 
+        }
+        .post-text { 
+            flex: 1.5; 
+            font-size: 1.15rem; 
+        }
+        .post-text p { 
+            margin-bottom: 1.2rem; 
+            text-align: justify; 
+        }
+        footer { 
+            background: linear-gradient(to top, var(--text), #1a2533); 
+            color: white; 
+            padding: 4rem 1.5rem 2rem; 
+            text-align: center; 
+            margin-top: 6rem; 
+            position: relative;
+            overflow: hidden;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center top, rgba(184,139,74,0.15), transparent 70%);
+            z-index: 0;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-logo {
+            margin-bottom: 2rem;
+        }
+        .footer-logo img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+        .footer-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: left;
+        }
+        .footer-column h4 {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        .footer-column p, .footer-column li {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.9);
+        }
+        .footer-bottom {
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(184,139,74,0.3);
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .post-content, .post-content.reverse { flex-direction: column; }
+            .post-image { min-width: auto; }
+            .post-text { text-align: center; }
+            h2 { font-size: 2.5rem; padding: 1rem 1.5rem; }
+        }
+        @media (max-width: 768px) {
+            .main-header { flex-direction: column; gap: 1.5rem; padding: 1rem; }
+            nav ul { gap: 1.2rem; }
+            nav a { padding: 0.5rem 0.8rem; font-size: 0.95rem; }
+            h2 { font-size: 2.2rem; padding: 1rem 1.2rem; }
+            .page-content { padding: 2.5rem 1.8rem; margin: 1.5rem auto; }
+            .blog-post h3 { font-size: 1.8rem; }
+            .post-text { font-size: 1.1rem; }
+            .footer-main { grid-template-columns: 1fr; text-align: center; }
+            .footer-column h4::after { left: 50%; transform: translateX(-50%); }
+            .footer-logo img { height: 50px; }
+        }
+        @media (max-width: 480px) {
+            h2 { font-size: 2rem; padding: 0.8rem 1rem; }
+            .blog-post h3 { font-size: 1.6rem; }
+            .logo-img { height: 55px; }
+            nav a { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body class="blog-page">
+    <header>
+        <div class="main-header">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="LOGO CARE-I TEA.jpg" alt="Care-I Tea Logo" class="logo-img">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="how.html">How It Works</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                    <li><a href="promos.html">Marketing & Promos</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="cart-icon" onclick="window.location.href='cart.html'">🛒<span class="cart-count" id="cart-count">0</span></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h2>Blog</h2>
+        <div class="page-content">
+            <p style="text-align:center; margin-bottom:3rem; font-size:1.3rem;">Explore articles on wellness, tea benefits, and mindful living.</p>
+
+            <div class="blog-post">
+                <h3>Why Powdered Tea Fits Busy Lifestyles</h3>
+                <div class="post-content">
+                    <div class="post-image">
+                        <img src="blog post 1.jpg" alt="Powdered tea for busy lifestyles">
+                    </div>
+                    <div class="post-text">
+                        <p>In today’s fast-paced world, taking care of yourself often feels like one more thing on an already full to-do list. Between school, work, family, and social commitments, preparing traditional tea can feel time-consuming. This is where powdered tea becomes a simple yet powerful solution.</p>
+                        <p>Care-I Tea’s powdered tea is designed for convenience without sacrificing wellness. With just one scoop, you can enjoy a comforting cup of tea in seconds—no kettle, no strainer, and no long brewing time required. Simply mix it with hot or cold water, and it’s ready to enjoy anytime, anywhere.</p>
+                        <p>Unlike many instant drinks that rely on high sugar content, Care-I Tea is naturally sweetened with stevia, offering a low-calorie option that still tastes good. Each variant—Chamomile, Green Tea, Earl Grey, and Blue Ternate—provides specific wellness benefits, from relaxation and focus to antioxidant support.</p>
+                        <p>Powdered tea fits seamlessly into busy lifestyles because it removes the barriers to healthy habits. Whether you’re rushing to class, working late, or relaxing at home, Care-I Tea makes wellness easy, accessible, and consistent—one cup at a time.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-post">
+                <h3>A Cup of Calm: Turning Tea into a Self-Care Ritual</h3>
+                <div class="post-content reverse">
+                    <div class="post-image">
+                        <img src="blog post 2.jpg" alt="Tea as a self-care ritual">
+                    </div>
+                    <div class="post-text">
+                        <p>Self-care doesn’t always have to be grand or time-consuming. Sometimes, it’s found in the quiet moments—like holding a warm cup of tea and taking a pause from the noise of the day.</p>
+                        <p>Care-I Tea believes that tea is more than just a drink; it’s a ritual of comfort and mindfulness. Preparing a cup of tea, even in its simplest form, creates space to slow down, breathe, and reconnect with yourself. Whether it’s chamomile before bedtime or blue ternate during a calm afternoon, each cup becomes a small act of care.</p>
+                        <p>The gentle sweetness, soothing aroma, and smooth texture of Care-I Tea are meant to bring emotional comfort. It’s a reminder that rest is allowed and that caring for yourself doesn’t need to be complicated. In a world that constantly demands productivity, a cup of tea becomes a moment of permission—to pause, to feel, and to simply be.</p>
+                        <p>By turning tea into a daily ritual, you create mindful moments that support emotional balance and inner calm. Care-I Tea invites you to make self-care a habit, not a luxury—one comforting sip at a time.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-post">
+                <h3>Small Choices, Big Impact: Choosing Eco-Friendly Tea</h3>
+                <div class="post-content">
+                    <div class="post-image">
+                        <img src="blog post 3.jpg" alt="Eco-friendly tea choices">
+                    </div>
+                    <div class="post-text">
+                        <p>Everyday choices matter more than we realize. From what we drink to how products are packaged, small decisions can create a lasting impact on both our health and the environment.</p>
+                        <p>Care-I Tea is committed to mindful consumption by using eco-conscious, resealable packaging that helps reduce waste while keeping tea fresh. By choosing powdered tea, consumers also minimize the need for single-use tea bags, excess packaging, and unnecessary waste often found in ready-to-drink beverages.</p>
+                        <p>Sustainable living doesn’t mean being perfect—it means being intentional. Choosing products that support wellness and environmental responsibility is one step toward a more mindful lifestyle. Care-I Tea encourages conscious consumption by offering a product that aligns health, convenience, and sustainability.</p>
+                        <p>When you choose eco-friendly tea, you’re not just caring for yourself—you’re also supporting responsible practices and a more thoughtful way of living. Small choices, like the tea you drink every day, can contribute to a healthier planet and a better future.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="LOGO CARE-I TEA.jpg" alt="Care-I Tea Logo">
+            </div>
+
+            <div class="footer-main">
+                <div class="footer-column">
+                    <h4>About Care-I Tea</h4>
+                    <p>Care-I Tea is a wellness-focused powdered tea brand committed to providing convenient, health-conscious beverage options for everyday self-care.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Privacy Policy</h4>
+                    <p>Care-I Tea values your privacy and is committed to protecting your personal information. Any data collected through this website, such as names, contact details, and order information, is used solely for order processing, customer service, and communication purposes. We do not sell, share, or disclose personal information to third parties without consent, except when required by law.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Terms & Conditions</h4>
+                    <p>By accessing and using the Care-I Tea website, users agree to comply with the terms and conditions stated herein. All product descriptions, prices, and availability are subject to change without prior notice. Care-I Tea reserves the right to update website content, promotions, and policies to improve customer experience and service quality.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Sustainability Commitment</h4>
+                    <p>Care-I Tea is committed to promoting mindful consumption and environmental responsibility. We use eco-friendly, resealable packaging to reduce waste and preserve product quality. The brand supports sustainable sourcing practices and encourages customers to practice responsible disposal and reuse of packaging as part of a wellness-driven lifestyle.</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Care-I Tea. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const countEl = document.getElementById('cart-count');
+        if (countEl) countEl.textContent = (JSON.parse(localStorage.getItem('cart') || '[]')).reduce((s,i)=>s+i.qty,0) || 0;
+    </script>
+</body>
+</html>
